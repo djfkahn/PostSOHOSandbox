@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>PostSoho Built on Flask/SQLAlchemy</title>
+		<link rel="canonical" href="https://postsoho.com/" />
+		<link rel="alternate" type="application/rss+xml" title="Talent &raquo; Feed" href="https://postsoho.com/feed/" />
+  		<link rel="alternate" type="application/rss+xml" title="Talent &raquo; Comments Feed" href="https://postsoho.com/comments/feed/" />
+  		<!--<script type='text/javascript' src='//maps.googleapis.com/maps/api/js?v=3&#038;libraries=geometry%2Cplaces&#038;key&#038;language=en&#038;region=us&#038;ver=4.2.2'>
+  		</script>
+  		<script type='text/javascript' src='//connect.facebook.net/en_US/sdk.js?ver=1.3.2.2#xfbml=1&#038;version=v2.3'>
+  		</script>
+  		<script type='text/javascript' src='//platform.twitter.com/widgets.js?ver=1.3.2.2'>
+  		</script>-->
+	</head>
+
+	<body class="home-page directory home page">
+		<!-- formulate the header with menus -->
+		<div id="page" class="hfeed site">
+			<header id="masthead" class="site-header" role="banner">
+				<div class="primary-header"  >
+					<div class="container">
+						<div class="primary-header-inner">
+							<div class="site-branding">
+  								<a href="https://postsoho.com/" title="Talent" rel="home" class="custom-header">
+  									<img src="https://postsoho.com/wp-content/uploads/2015/07/Logo_small24.png" alt="">
+  								</a>
+  								<ul id="menu-menu" class="menu">
+    								<li id="menu-item-904" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-904">
+    									<a href="/talent/">Talent</a>
+    								</li>
+    								<li id="menu-item-847" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-847">
+    									<a href="/gigs/find/">Projects</a>
+    								</li>
+    								<li id="menu-item-1849" class="menu-item menu-item-type-post_type menu-item-object-page menu-item-1849">
+    									<a href="/hubs5/">Hubs</a>
+    								</li>
+    								<li id="menu-item-1152" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-has-children menu-item-1152">
+    									<a href="/dashboard/">Account</a>
+	    								<ul class="sub-menu">
+      										<li id="menu-item-852" class="popup-wide menu-item menu-item-type-custom menu-item-object-custom menu-item-852">
+      											<a href="/post/" class="popup-trigger-ajax popup-wide">Create Posting</a>
+      										</li>
+    									</ul>
+    								</li>
+    								<li id="menu-item-848" class="popup-wide menu-item menu-item-type-custom menu-item-object-custom menu-item-848">
+    									<a href="/how-it-works/" class="popup-trigger-ajax popup-wide">Help</a>
+    								</li>
+    								<li id="menu-item-828" class="menu-item menu-item-type-custom menu-item-object-custom menu-item-828">
+    									<a href="/my-account/customer-logout/">Logout</a>
+    								</li>
+ 								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+		</div>
+
+		<nav id="site-navigation" class="main-navigation" role="navigation">
+			<div class="container">
+				<a href="#" class="navigation-bar-toggle"><i class="ion-navicon-round"></i> Menu </a>
+				<div class="navigation-bar-wrapper">
+					<div class="secondary nav-menu">
+						<ul id="menu-secondary" class="secondary nav-menu">
+							<li id="categories-mega-menu" class="ion-navicon-round menu-item menu-type-link">
+								<a href="https://postsoho.com/talent/">Browse Categories</a>
+							</li>
+							<ul class="sub-menu category-list">
+								<form id="job_listing_tax_mobile" action="https://postsoho.com" method="get">
+									<select name='job_listing_category' id='job_listing_category' class='postform' >
+										<option value='0' selected='selected'>Select a Category</option>
+										{% for i in categories %}
+										<option class="level-0" value="{{i.value}}">{{i.name}} - ({{i.num}})</option>
+										{% endfor %}
+									</select>
+								</form>
+							</ul>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+		<div id="content" class="site-content">
+			<div class="homepage-cover has-map">
+				<div class="archive-job_listing-toggle-wrapper container">
+					<div class="archive-job_listing-toggle-inner views">
+						<a href="#" class="archive-job_listing-toggle active" data-toggle=".content-area">Results</a>
+						<a href="#" class="archive-job_listing-toggle" data-toggle=".job_listings-map-wrapper">Map</a>
+					</div>
+				</div>
+				<div class="job_listings" data-location="" data-keywords="" data-show_filters="true" data-show_pagination="true" data-per_page="50" data-orderby="featured" data-order="DESC" data-categories="" >
+					<a href="#" data-toggle=".job_filters" class="js-toggle-area-trigger">Toggle Filters</a>
+					<form class="job_filters">
+						<div class="search_jobs">
+							<div class="search_keywords">
+								<label for="search_keywords">Keywords</label>
+								<input type="text" name="search_keywords" id="search_keywords" placeholder="Keywords" value="" />
+							</div>
+							<div class="search_location">
+								<label for="search_location">Location</label>
+								<input type="text" name="search_location" id="search_location" placeholder="Location" value="" />
+							</div>
+							<div class="search_categories">
+								<label for="search_categories">Category</label>
+								<select name='search_categories[]' id='search_categories' class='job-manager-category-dropdown '  data-placeholder='Choose a category&hellip;'>
+									<option value="">Any category</option>	
+									{% for i in categories %}
+									<option class="level-0" value={{i.value}}>{{i.name}}</option>
+									{% endfor %}
+								</select>
+							</div>
+							<div class="search-radius-wrapper in-use">
+								<div class="search-radius-label">
+									<label for="use_search_radius">
+										<input type="checkbox" name="use_search_radius" id="use_search_radius"  checked='checked'/> Radius: <span class="radi">100</span> mi
+									</label>
+								</div>
+								<div class="search-radius-slider">
+									<div id="search-radius">
+									</div>
+								</div>
+								<input type="hidden" id="search_radius" name="search_radius" value="100" />
+							</div>
+							<input type="hidden" id="search_lat" name="search_lat" value="0" />
+							<input type="hidden" id="search_lng" name="search_lng" value="0" />
+							<div class="filter_wide filter_by_tag">Filter by tag: <span class="filter_by_tag_cloud"></span>
+							</div>
+							<input type="hidden" name="search_region" class="search_region" value="" />
+						</div>
+
+						<p class="filter-by-type-label">Filter by type:</p>
+						<input type="hidden" id="search_context" name="search_context" value="834" />
+						<ul class="job_types">
+							{% for i in job_types %}
+							<li><label for="job_type_freelance" class="{{i.value}}">
+								<input type="checkbox" name="filter_job_type[]" value="{{i.value}}" checked='unchecked' id="job_type_{{i.value}}"/> {{i.name}}
+							</label></li>
+							{% endfor %}
+						</ul>
+						<button type="submit" data-refresh="Loading..." data-label="Search Talent" name="update_results" class="update_results">Search Talent</button>
+					</form>
+
+					<div class="archive-job_listing-filter-title">
+						<div class="archive-job_listing-layout-wrapper">
+							<a href="#" data-style="grid" class="archive-job_listing-layout button"><span class="ion-grid"></span></a>
+							<a href="#" data-style="list" class="archive-job_listing-layout button active"><span class="ion-navicon-round"></span></a>
+						</div>
+						<h3 class="archive-job_listing-found"><span class="results-found">1</span> Results Found</h3>
+					</div>
+	
+					<div class="container homepage-hero-style-">
+						<aside class="home-widget">
+							<hgroup class="home-widget-section-title">
+								<h1 class="home-widget-title">Recent  Listings</h1>
+								<h2 class="home-widget-description">Take a look at what&#039;s been recently added.</h2>
+							</hgroup>
+							<ul class="job_listings">
+								<li id="job_listing-2017" class="bp_blogs type-bp_blogs job-type-ftpt-job post-2017 job_listing type-job_listing status-publish hentry job_listing_region-silicon-valley job_listing_category-back-end-developer job_listing_category-management job_listing_category-product-manager job_listing_category-project-manager job_listing_type-ftpt-job job_listing_tag-c job_listing_tag-c-2 col-xs-12 col-sm-6 col-md-4 style-grid" data-grid-columns="col-xs-12 col-sm-6 col-md-4" data-rating="0 Stars" data-id="2017" data-link="https://postsoho.com/talent/san-jose-ca-united-states-array-dan-kahn/" data-thumb="https://0.gravatar.com/avatar/3c7cf26b91ed913c36b1fbc4d377723c?s=210&amp;d=mm&amp;r=g" data-title="Dan Kahn" data-address="San Jose, CA, United States" data-longitude="-121.88632860000001" data-latitude="37.3382082" data-color="#43a50e" data-icon="ion-information-circled" data-term="91">
+									<div class="content-box">
+										{% for i in users %}
+										<h1>{{i.name}}</h1>
+										<h3>Review Rating:  {{i.ratingAverage}}
+										</h3>
+										<h3>Number of Reviews:  {{i.numberOfReviews}}
+										</h3>
+										<h3>Rate: {{i.rate}}
+										</h3>
+										{% endfor %}
+									</div>
+								</li><!-- #post-## -->
+							</ul>
+						</aside>
+					</div>
+				</div><!-- #content -->
+			</div>
+		</div><!-- #page -->
+	</body>
+</html>
+
